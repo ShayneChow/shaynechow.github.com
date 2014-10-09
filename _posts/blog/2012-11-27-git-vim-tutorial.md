@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Git时代的VIM不完全使用教程
-description: 在Git流行的时代，VIM的生态环境也有了长足的进步，令人感动。
+description: 【转载】来自[BeiYuu](http://beiyuu.com)
 category: blog
 ---
 
