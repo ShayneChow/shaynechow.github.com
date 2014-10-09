@@ -47,7 +47,6 @@ $ php composer.phar update OR $ composer update
 
 * [PHP 开发者该知道的5个 Composer 小技巧](http://segmentfault.com/a/1190000000355928) * 
 
----
 
 ### Homebrew安装php5及composer for mac教程
 * 使用Homebrew安装composer要求PHP也由Homebrew安装，一下安装PHP过程仅作参考，详细资料请自行搜索 *
@@ -110,5 +109,3 @@ $ brew install josegonzalez/php/composer
 在shell中输入：`$ composer` 验证
 
 完成
-
----
