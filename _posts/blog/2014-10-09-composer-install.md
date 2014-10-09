@@ -5,7 +5,7 @@ category: blog
 description: PHP yii2 框架中引入Composer工具是一个利好的消息，我们可以使用其管理所需依赖。
 ---
 
-##独立安装Composer教程
+## 独立安装Composer教程
 
 composer.json 声明PHP依赖的第三方扩展的文件
 
@@ -43,14 +43,14 @@ $ php composer.phar update OR $ composer update
 
 *关于composer使用的相关参考资料:*
 
-*[php依赖库管理工具Composer入门](http://weizhifeng.net/manage-php-dependency-with-composer.html)*
+* [php依赖库管理工具Composer入门](http://weizhifeng.net/manage-php-dependency-with-composer.html) *
 
-*[PHP 开发者该知道的5个 Composer 小技巧](http://segmentfault.com/a/1190000000355928)*
+* [PHP 开发者该知道的5个 Composer 小技巧](http://segmentfault.com/a/1190000000355928) * 
 
 ---
 
-###Homebrew安装php5及composer for mac教程
-*使用Homebrew安装composer要求PHP也由Homebrew安装，一下安装PHP过程仅作参考，详细资料请自行搜索*
+### Homebrew安装php5及composer for mac教程
+* 使用Homebrew安装composer要求PHP也由Homebrew安装，一下安装PHP过程仅作参考，详细资料请自行搜索 *
 
 首先更新下brew软件库
 
