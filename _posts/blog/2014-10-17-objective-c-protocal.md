@@ -82,3 +82,13 @@ category: blog
 	2014-10-17 15:12:47.325 LearnProtocal[2151:458763] M
 	2014-10-17 15:12:47.325 LearnProtocal[2151:458763] This is a Dog
 
+## 最终目录结构示意
+
+    	|-- LearnProtocal
+    	|-- Supporting Files
+	|   `-- main.m
+    	|-- Animal.h
+    	|-- Dog.h
+    	`-- Dog.m
+    	
+    	
