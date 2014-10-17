@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Objective-C基础：协议（protocal）
-description: iOS开发入门系列之Objective-C协议
+description: iOS开发入门系列 之 Objective-C基础知识
 category: blog
 ---
 
@@ -83,12 +83,13 @@ category: blog
 	2014-10-17 15:12:47.325 LearnProtocal[2151:458763] This is a Dog
 
 ## 最终目录结构示意
+本文中出现文件的相对路径示意，未出现文件省略（可参考Xcode自动生成目录结构）。
 
-    	|-- LearnProtocal
-    	|-- Supporting Files
-	|   `-- main.m
-    	|-- Animal.h
-    	|-- Dog.h
-    	`-- Dog.m
+	   	|-- LearnProtocal	//工程名
+	   	|-- Supporting Files
+		|   `-- main.m
+	   	|-- Animal.h
+	   	|-- Dog.h
+	   	`-- Dog.m
     	
     	
