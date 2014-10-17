@@ -1,12 +1,11 @@
 ---
-layout:     post
-title:      Composer安装
+layout: post
+title: Composer安装
 category: blog
 description: PHP yii2 框架中引入Composer工具是一个利好的消息，我们可以使用其管理所需依赖。
 ---
 
 ## 独立安装Composer教程
-
 composer.json 声明PHP依赖的第三方扩展的文件
 
 加载该文件需要安装composer, composer是PHP的一个类库依赖管理机制, 类似Ruby 的 Gem
