@@ -1,9 +1,10 @@
 ---
 layout: post
-title:Objective-C基础：协议（protocal）
-description:iOS开发入门系列之Objective-C协议
+title: Objective-C基础：协议（protocal）
+description: iOS开发入门系列之Objective-C协议
 category: blog
 ---
+
 
 ## Objective-C语言中协议的用途
 在Objective-C中，协议`protocal`有什么样的用途呢？`protocal`类似Java语言中的接口`interface`。
