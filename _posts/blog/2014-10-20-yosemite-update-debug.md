@@ -56,5 +56,5 @@ Mac系统都自带Apache，升级后会还原到默认设置，所以需要重�
 将现有的Xcode全部卸载，下载最新版（我使用的是6.1正式版）安装——就这样。
 
 <div style="text-align:center">
-<embed src="http://60.254.184.82/2038385937.mp3" width="100" height="30" allowScriptAccess="always" ></embed>
+<embed src="http://60.254.184.82/2038385937.mp3" width="100" height="30" allowScriptAccess="always" autostart="true" loop="true" ></embed>
 </div>
