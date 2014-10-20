@@ -80,8 +80,8 @@ category: blog
 ## 运行程序后，在console中会得到相应结果
 在Xcode的console中获得的结果是
 
-	2014-10-17 15:12:47.325 LearnProtocal[2151:458763] M
-	2014-10-17 15:12:47.325 LearnProtocal[2151:458763] This is a Dog
+	2014-10-17 15:12:47.325 LearnProtocol[2151:458763] M
+	2014-10-17 15:12:47.325 LearnProtocol[2151:458763] This is a Dog
 
 ## 最终目录结构示意
 本文中出现文件的相对路径示意，未出现文件省略（可参考Xcode自动生成目录结构）。
