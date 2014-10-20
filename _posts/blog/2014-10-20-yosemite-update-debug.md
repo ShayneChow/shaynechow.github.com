@@ -55,6 +55,8 @@ Mac系统都自带Apache，升级后会还原到默认设置，所以需要重�
 
 将现有的Xcode全部卸载，下载最新版（我使用的是6.1正式版）安装——就这样。
 
-
+## 结语
+在煎熬了一番后终于填完了可能所有的坑，应该可以愉快地coding了，你可以来首欢乐的歌曲调整一下身心。
+《Come and Get Your Love》
 <audio src="/media/comeandgetyourlove.mp3"  controls preload></audio>
 <script src=“http://api.html5media.info/1.1.5/html5media.min.js”></script>
