@@ -44,19 +44,88 @@ category: blog
 ### Apache配置
 Mac系统都自带Apache，升级后会还原到默认设置，所以需要重新配置，如果你在使用它的话。
 
+在终端运行`$ sudo vi /etc/apache2/httpd.conf`，打开Apache的配置文件
+
+你可以在此配置虚拟主机，启用PHP等。
+
+```
+//以启用PHP配置为例说明
+
+#LoadModule php5_module libexec/apache2/libphp5.so   //默认配置为关闭
+
+LoadModule php5_module libexec/apache2/libphp5.so    //去掉注释，开启PHP支持
+```
+
+但此处需要注意PHP的版本及文件路径，如果你的PHP是由Homebrew管理，并且升级到最新版（截止本文发布时最新正式版是 5.5.17，Yosemite自带PHP版本为 5.5.14），你需要将Apache配置文件做相应更改
+
+```
+LoadModule php5_module /usr/local/Cellar/php55/5.5.17/libexec/apache2/libphp5.so    //注意路径与版本
+```
+
 ### Homebrew
 从Yosemite的开发者预览版开始，就不断有人尝鲜，Homebrew不兼容问题一直困扰着人们，如今正式版推出带来怎么的变化呢？
+
+修复Homebrew问题，大牛池建强的MacTalk提供的方法如下:
+
+```
+$ cd `brew --prefix`
+$ mv Cellar /tmp
+$ brew prune
+$ rm -r `git ls-files`
+$ rm -r Library/Homebrew Library/Aliases Library/Formula Library/Contributions
+$ rm -rf .git
+$ rm -rf ~/Library/Caches/Homebrew
+```
+
+然后重新安装 Homebrew :
+
+```
+$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+$ brew update
+```
+
+把备份的程序复制回来，更新所有程序：
+
+```
+$ mv /tmp/Cellar .
+$ brew update
+$ brew upgrade
+```
+
+不过实际上正式版发布后已经不需要重装这么麻烦了，似乎只需要最后两步：
+
+```
+$ brew update
+$ brew upgrade
+```
 
 ### PHP及相关扩展
 如果你使用brew安装的PHP，那你需要从新配置开发环境。
 
+在上一部分Apache配置里说明了启用PHP的配置，所以在这里注意更改环境变量，使用自己安装的PHP版本
+
+```
+$ export PATH="$(brew --prefix php55)/bin:$PATH"
+```
+
+### Java环境
+Java再次被干掉，这也是很多IDE无法启动的原因。
+
+Java 没了，所有 Java 相关的开发工具和中间件都不能用了，不过不用担心，这个问题最容易解决。
+
+在终端输入`$ java --version`
+
+会弹出一个"您需要安装JDK才能使用java命令的工具"的提示框，点击“更多信息”，进入苹果官方支持页面，按照提示下载JDK安装即可。
+
 ### 关于Xcode
 做iOS开发的同学可能在升级后面临Xcode集成开发环境出现不可思议的问题的情况，我是怎么做的呢？
 
-将现有的Xcode全部卸载，下载最新版（我使用的是6.1正式版）安装——就这样。
+将现有的Xcode全部卸载，下载最新版（我使用的是6.1正式版）安装——反正我就这样干的。
 
 ## 结语
 在煎熬了一番后终于填完了可能所有的坑，应该可以愉快地coding了，你可以来首欢乐的歌曲调整一下身心。
-《Come and Get Your Love》
-<audio src="/media/comeandgetyourlove.mp3"  controls preload></audio>
+
+> 《Come and Get Your Love》-- Redbone
+>> <audio src="/media/comeandgetyourlove.mp3"  controls preload></audio>
+
 <script src=“http://api.html5media.info/1.1.5/html5media.min.js”></script>
