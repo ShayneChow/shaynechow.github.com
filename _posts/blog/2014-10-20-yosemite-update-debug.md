@@ -56,4 +56,4 @@ Mac系统都自带Apache，升级后会还原到默认设置，所以需要重�
 将现有的Xcode全部卸载，下载最新版（我使用的是6.1正式版）安装——就这样。
 
 
-<bgsound src="http://60.254.184.82/2038385937.mp3" loop="-1" ></bgsound>
+<bgsound src="http://60.254.184.82/2038385937.mp3" loop="-1" volume="100"></bgsound>
