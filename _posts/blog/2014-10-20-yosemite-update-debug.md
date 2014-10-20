@@ -54,3 +54,5 @@ Mac系统都自带Apache，升级后会还原到默认设置，所以需要重�
 做iOS开发的同学可能在升级后面临Xcode集成开发环境出现不可思议的问题的情况，我是怎么做的呢？
 
 将现有的Xcode全部卸载，下载最新版（我使用的是6.1正式版）安装——就这样。
+
+<embed src="http://music.163.com/#/song?id=28864241" width="300" height="45" type="audio/mpeg" loop="-1" autostart="false" volume="0"></embed>
