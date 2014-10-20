@@ -1,16 +1,17 @@
 ---
 layout: post
-title: Objective-C基础：协议（protocal）
+title: Objective-C基础：协议（protocol）
 description: iOS开发入门系列 之 Objective-C基础知识
 category: blog
 ---
 
 
 ## Objective-C语言中协议的用途
-在Objective-C中，协议`protocal`有什么样的用途呢？`protocal`类似Java语言中的接口`interface`。
+在Objective-C中，协议`protocol`有什么样的用途呢？`protocol`类似Java语言中的接口`interface`。
+协议实际上是一组方法列表，并不依赖于特定的类。使用协议可以是不同的类共享相同的消息。
 
 ## 创建协议文件
-在所属工程项目下创建protocal头文件
+在所属工程项目下创建protocol头文件
 
 	//Animal.h
 	
