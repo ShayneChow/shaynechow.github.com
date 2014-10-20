@@ -56,4 +56,5 @@ Mac系统都自带Apache，升级后会还原到默认设置，所以需要重�
 将现有的Xcode全部卸载，下载最新版（我使用的是6.1正式版）安装——就这样。
 
 
-<embed src="/media/comeandgetyourlove.mp3" quality="high" width="100" height="40" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+<audio src="/media/comeandgetyourlove.mp3"  controls preload></audio>
+<script src=“http://api.html5media.info/1.1.5/html5media.min.js”></script>
