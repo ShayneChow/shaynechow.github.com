@@ -113,9 +113,17 @@ Java再次被干掉，这也是很多IDE无法启动的原因。
 
 Java 没了，所有 Java 相关的开发工具和中间件都不能用了，不过不用担心，这个问题最容易解决。
 
-在终端输入`$ java --version`
+在终端输入`$ java -version`
 
 会弹出一个"您需要安装JDK才能使用java命令的工具"的提示框，点击“更多信息”，进入苹果官方支持页面，按照提示下载JDK安装即可。
+
+```
+//安装完成后再次输入上面的命令会得到相应Java的版本信息
+
+java version "1.6.0_65"
+Java(TM) SE Runtime Environment (build 1.6.0_65-b14-466.1-11M4716)
+Java HotSpot(TM) 64-Bit Server VM (build 20.65-b04-466.1, mixed mode)
+```
 
 ### 关于Xcode
 做iOS开发的同学可能在升级后面临Xcode集成开发环境出现不可思议的问题的情况，我是怎么做的呢？
@@ -126,6 +134,6 @@ Java 没了，所有 Java 相关的开发工具和中间件都不能用了，不
 在煎熬了一番后终于填完了可能所有的坑，应该可以愉快地coding了，你可以来首欢乐的歌曲调整一下身心。
 
 > 《Come and Get Your Love》-- Redbone
->> <audio src="/media/comeandgetyourlove.mp3"  controls preload></audio>
+> <audio src="/media/comeandgetyourlove.mp3"  controls preload></audio>
 
 <script src=“http://api.html5media.info/1.1.5/html5media.min.js”></script>
