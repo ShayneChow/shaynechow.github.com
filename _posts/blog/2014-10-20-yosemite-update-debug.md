@@ -125,6 +125,20 @@ Java(TM) SE Runtime Environment (build 1.6.0_65-b14-466.1-11M4716)
 Java HotSpot(TM) 64-Bit Server VM (build 20.65-b04-466.1, mixed mode)
 ```
 
+### Ruby环境
+系统升级后openssl配置失效，导致bundle异常，会抛出错误`undefined method `invoke_with_build_args' for nil:NilClass`
+
+修复办法：
+```
+$ brew install openssl
+$ brew link openssl
+
+// 如果上述方式不能解决问题，可尝试下面方法
+
+$ rvm pkg install openssl
+$ rvm reinstall all --force
+```
+
 ### 关于Xcode
 做iOS开发的同学可能在升级后面临Xcode集成开发环境出现不可思议的问题的情况，我是怎么做的呢？
 
@@ -134,6 +148,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 20.65-b04-466.1, mixed mode)
 在煎熬了一番后终于填完了可能所有的坑，应该可以愉快地coding了，你可以来首欢乐的歌曲调整一下身心。
 
 > 《Come and Get Your Love》-- Redbone
+
 > <audio src="/media/comeandgetyourlove.mp3"  controls preload></audio>
 
 <script src=“http://api.html5media.info/1.1.5/html5media.min.js”></script>
