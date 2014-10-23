@@ -126,9 +126,12 @@ Java HotSpot(TM) 64-Bit Server VM (build 20.65-b04-466.1, mixed mode)
 ```
 
 ### Ruby环境
-系统升级后openssl配置失效，导致bundle异常，会抛出错误`undefined method `invoke_with_build_args' for nil:NilClass`
+系统升级后openssl配置失效，导致bundle异常，会抛出错误
+
+	undefined method `invoke_with_build_args' for nil:NilClass
 
 修复办法：
+
 ```
 $ brew install openssl
 $ brew link openssl
