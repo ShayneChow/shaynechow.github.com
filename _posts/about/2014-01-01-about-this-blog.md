@@ -17,9 +17,9 @@ About Me
 
 这个博客是通过 github pages 搭建的，省去了自己编码及配置服务的麻烦事，非常简单地就可以免费获得一个属于自己的专属博客。
 
-本博客分三个板块：[Blog](http://shaynechow.github.io/) [Opinion](http://shaynechow.github.io/opinion/) [About](http://shaynechow.github.io/about/)
-
-在Blog部分我会总结工作过程中的一些学习、技巧、经验等，Opinion则是我记录自己想法、观点的地方（这个板块个人色彩会比较浓，可能会引起某些人不适，浏览时请自带过滤器），About就很简单了，主要是介绍用的，会汇集一些我的生活影像。
+>本博客分三个板块：[Blog](http://shaynechow.github.io/) [Opinion](http://shaynechow.github.io/opinion/) [About](http://shaynechow.github.io/about/)
+>
+>在<em>Blog</em>部分我会总结工作过程中的一些学习、技巧、经验等；<em>Opinion</em>则是我记录自己想法、观点的地方（这个板块个人色彩会比较浓，可能会引起某些人不适，浏览时请自带过滤器）；<em>About</em>就很简单了，主要是介绍用的，会汇集一些我的生活影像。
 
 未完待续...
 
