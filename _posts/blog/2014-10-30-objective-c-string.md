@@ -213,17 +213,19 @@ category: blog
 	NSLog(@"String1:%@",String1);
 	
 ###7、判断字符串内是否还包含别的字符串(前缀，后缀)
-####检查字符串是否以另一个字符串开头`- (BOOL) hasPrefix: (NSString *) aString;`
+####7.1、检查字符串是否以另一个字符串开头
+`- (BOOL) hasPrefix: (NSString *) aString;`
 
 	NSString *String1 = @"NSStringInformation.txt";
 	[String1 hasPrefix:@"NSString"] = = 1 ?NSLog(@"YES") : NSLog(@"NO");
 	[String1 hasSuffix:@".txt"] = = 1 ?NSLog(@"YES") : NSLog(@"NO");
 
-####查找字符串某处是否包含其它字符串 `- (NSRange) rangeOfString: (NSString *) aString;` 这一点前面在串中搜索子串用到过;
+####7.2、查找字符串某处是否包含其它字符串 
+`- (NSRange) rangeOfString: (NSString *) aString;` 这一点前面在串中搜索子串用到过;
 
-
+<br/>
 
 ##参考文档
 
-[NSString 官方文档](https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html)
-[NSMutableString 官方文档](https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSMutableString_Class/Reference/Reference.html#//apple_ref/occ/cl/NSMutableString)
+### [NSString 官方文档](https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html)
+### [NSMutableString 官方文档](https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSMutableString_Class/Reference/Reference.html#//apple_ref/occ/cl/NSMutableString)
