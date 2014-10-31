@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Object-c 中的字符串
-description: Object-c 中字符串 NSString、NSMutableString 的使用方法总结。
+title: Objective-C基础：字符串
+description: iOS开发入门系列 之 Objective-C基础知识。Objective-C 中字符串类型 NSString、NSMutableString 的使用方法总结。
 category: blog
 ---
 
@@ -222,8 +222,8 @@ category: blog
 ####查找字符串某处是否包含其它字符串 `- (NSRange) rangeOfString: (NSString *) aString;` 这一点前面在串中搜索子串用到过;
 
 
+
 ##参考文档
 
 [NSString 官方文档](https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html)
-
-[NSMutableString官方文档](https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSMutableString_Class/Reference/Reference.html#//apple_ref/occ/cl/NSMutableString)
+[NSMutableString 官方文档](https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSMutableString_Class/Reference/Reference.html#//apple_ref/occ/cl/NSMutableString)

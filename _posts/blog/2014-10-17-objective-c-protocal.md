@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Objective-C基础：协议（protocol）
-description: iOS开发入门系列 之 Objective-C基础知识
+description: iOS开发入门系列 之 Objective-C基础知识。
 category: blog
 ---
 
