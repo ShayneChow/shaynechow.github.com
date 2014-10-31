@@ -15,68 +15,46 @@ category: blog
 
 	NSString *astring = [[NSString alloc] init];
 	astring = @"This is a String!";
-	[astring release];
 	NSLog(@"astring:%@",astring);
 
-###3、在以上方法中，提升速度:initWithString方法
-
-	NSString *astring = [[NSString alloc] initWithString:@"This is a String!"];
-	NSLog(@"astring:%@",astring);
-	[astring release];
-
-###4、用标准c创建字符串:initWithCString方法
+###3、用标准c创建字符串:initWithCString方法
 
 	char *Cstring = "This is a String!";
 	NSString *astring = [[NSString alloc] initWithCString:Cstring];
 	NSLog(@"astring:%@",astring);
-	[astring release];
 
-###5、创建格式化字符串:占位符（由一个%加一个字符组成）
+###4、创建格式化字符串:占位符（由一个%加一个字符组成）
 
 	int i = 1;
 	int j = 2;
 	NSString *astring = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%d.This is %i string!",i,j]];
 	NSLog(@"astring:%@",astring);
-	[astring release];
 
-###6、创建临时字符串
 
-	NSString *astring;
-	astring = [NSString stringWithCString:"This is a temporary string"];
-	NSLog(@"astring:%@",astring);
-
-###7、获取长度
+###5、获取长度
 
 	NSUInteger uLen1 = [astring length];
 	NSLog(@"uLen = %lu", uLen1);
-
-###8、获取指定索引处的字符
-
-	NSUInteger index = 0;
-	unichar c = [sFormat characterAtIndex:index];
-	NSLog(@"The character at index %u of \"%@\" is \'%c\'", index, sFormat, c);
 	
-###9、从文件读取字符串:initWithContentsOfFile方法
+###6、从文件读取字符串:initWithContentsOfFile方法
 
 	NSString *path = @"astring.text";
 	NSString *astring = [[NSString alloc] initWithContentsOfFile:path];
 	NSLog(@"astring:%@",astring);
-	[astring release];
 	
-###10、写字符串到文件:writeToFile方法
+###7、写字符串到文件:writeToFile方法
 
 	NSString *astring = [[NSString alloc] initWithString:@"This is a String!"];
 	NSLog(@"astring:%@",astring);
 	NSString *path = @"astring.text";
 	[astring writeToFile: path atomically: YES];
-	[astring release];
 
-###11、比较两个字符串
+###8、比较两个字符串
 
 	//用C比较:strcmp函数
 	char string1[] = "string!";
 	char string2[] = "string!";
-	if(strcmp(string1, string2) = = 0)
+	if(strcmp(string1, string2) == 0)
 	{
 	    NSLog(@"1");
 	}
@@ -87,61 +65,60 @@ category: blog
 	BOOL result = [astring01 isEqualToString:astring02];
 	NSLog(@"result:%d",result);
 	
-	//compare方法(comparer返回的三种值，升序返回-1，相等返回0，降序返回1)
+	//compare方法(相等返回1)
 	NSString *astring01 = @"This is a String!";
 	NSString *astring02 = @"This is a String!";
-	BOOL result = [astring01 compare:astring02] = = NSOrderedSame;
+	BOOL result = [astring01 compare:astring02] == NSOrderedSame;
 	NSLog(@"result:%d",result);
 	
-	//NSOrderedSame判断两者内容是否相同
+	//NSOrderedAscending判断两者内容是否相同(按字母顺序进行比较，astring02大于astring01为真)
 	NSString *astring01 = @"This is a String!";
 	NSString *astring02 = @"this is a String!";
-	BOOL result = [astring01 compare:astring02] = = NSOrderedAscending;
-	NSLog(@"result:%d",result);
-	
-	//NSOrderedAscending判断两对象值的大小(按字母顺序进行比较，astring02大于astring01为真)
-	NSString *astring01 = @"this is a String!";
-	NSString *astring02 = @"This is a String!";
-	BOOL result = [astring01 compare:astring02] = = NSOrderedDescending;
+	BOOL result = [astring01 compare:astring02] == NSOrderedAscending;
 	NSLog(@"result:%d",result);
 	
 	//NSOrderedDescending判断两对象值的大小(按字母顺序进行比较，astring02小于astring01为真)
+	NSString *astring01 = @"this is a String!";
+	NSString *astring02 = @"This is a String!";
+	BOOL result = [astring01 compare:astring02] == NSOrderedDescending;
+	NSLog(@"result:%d",result);
+	
 	//不考虑大小写比较字符串1
 	NSString *astring01 = @"this is a String!";
 	NSString *astring02 = @"This is a String!";
-	BOOL result = [astring01 caseInsensitiveCompare:astring02] = = NSOrderedSame;
+	BOOL result = [astring01 caseInsensitiveCompare:astring02] == NSOrderedSame;
 	NSLog(@"result:%d",result);
 	
-	//NSOrderedDescending判断两对象值的大小(按字母顺序进行比较，astring02小于astring01为真)
 	//不考虑大小写比较字符串2
 	NSString *astring01 = @"this is a String!";
 	NSString *astring02 = @"This is a String!";
 	BOOL result = [astring01 compare:astring02
-	                         options:NSCaseInsensitiveSearch | NSNumericSearch] = = NSOrderedSame;
+	                         options:NSCaseInsensitiveSearch | NSNumericSearch] == NSOrderedSame;
 	NSLog(@"result:%d",result);
 	
 	//NSCaseInsensitiveSearch:不区分大小写比较 NSLiteralSearch:进行完全比较，区分大小写 	NSNumericSearch:比较字符串的字符个数，而不是字符值。
 
-###12、改变字符串的大小写
+###9、改变字符串的大小写
 
 	NSString *string1 = @"A String";
-	NSString *string2 = @"String";
-	NSLog(@"string1:%@",[string1 uppercaseString]);//大写
-	NSLog(@"string2:%@",[string2 lowercaseString]);//小写
-	NSLog(@"string2:%@",[string2 capitalizedString]);//首字母大小
+    NSString *string2 = @"string";
+    NSLog(@"string1:%@",[string2 uppercaseString]);//大写
+    NSLog(@"string2:%@",[string1 lowercaseString]);//小写
+    NSLog(@"string2:%@",[string2 capitalizedString]);//首字母大小
 	
-###13、在串中搜索子串
+###10、在串中搜索子串
 
 	NSString *string1 = @"This is a string";
-	NSString *string2 = @"string";
-	NSRange range = [string1 rangeOfString:string2];
-	int location = range.location;
-	int leight = range.length;
-	NSString *astring = [[NSString alloc] initWithString:[NSString stringWithFormat:@"Location:%i,Leight:%i",location,	leight]];
-	NSLog(@"astring:%@",astring);
-	[astring release];
+    NSString *string2 = @"string";
+    NSRange range = [string1 rangeOfString:string2];
+    NSUInteger location = range.location;
+    NSUInteger length = range.length;
+    NSString *astring = [[NSString alloc] initWithString:[NSString stringWithFormat:@"Location:%lu,Length:%lu",(unsigned long)location,	(unsigned long)length]];
+    NSLog(@"astring:%@",astring);
 
-###14、抽取子串
+    //结果：astring:Location:11,Length:6
+
+###11、抽取子串
 
 	//-substringToIndex: 从字符串的开头一直截取到指定的位置，但不包括该位置的字符
 	NSString *string1 = @"This is a string";
@@ -152,37 +129,42 @@ category: blog
 	NSString *string1 = @"This is a string";
 	NSString *string2 = [string1 substringFromIndex:3];
 	NSLog(@"string2:%@",string2);
-	//-substringWithRange: //按照所给出的位置，长度，任意地从字符串中截取子串
+
+	//-substringWithRange: 按照所给出的位置，长度，任意地从字符串中截取子串
 	NSString *string1 = @"This is a string";
-	NSString *string2 = [string1 substringWithRange:NSMakeRange(0, 4)];
+	NSString *string2 = [string1 substringWithRange:NSMakeRange(3, 4)];
 	NSLog(@"string2:%@",string2);
 
-###15、扩展路径
+###12、扩展路径
 
 	NSString *Path = @"~/NSData.txt";
 	NSString *absolutePath = [Path stringByExpandingTildeInPath];
 	NSLog(@"absolutePath:%@",absolutePath);
 	NSLog(@"Path:%@",[absolutePath stringByAbbreviatingWithTildeInPath]);
 
-###16、文件扩展名
+###13、文件扩展名
 
 	NSString *Path = @"~/NSData.txt";
 	NSLog(@"Extension:%@",[Path pathExtension]);
 
-##二、NSMutableString 处理内容可变的字符串
+##二、NSMutableString 可变字符串
 
-###1、stringWithCapacity 给字符串分配容量:
+###1、stringWithCapacity 给字符串分配容量
 
 	NSMutableString *String;
 	String = [NSMutableString stringWithCapacity:40];
 
 ###2、在已有字符串后面添加字符
 
-	//appendString: and appendFormat:
+	//appendString: 
 	NSMutableString *String1 = [[NSMutableString alloc] initWithString:@"This is a NSMutableString"];
-	//[String1 appendString:@", I will be adding some character"];
-	[String1 appendFormat:[NSString stringWithFormat:@", I will be adding some character"]];
+	[String1 appendString:@", I will be adding some character."];
 	NSLog(@"String1:%@",String1);
+
+	//appendFormat:
+	NSMutableString *String2 = [[NSMutableString alloc] initWithString:@"This is a NSMutableString"];
+	[String2 appendFormat:[NSString stringWithFormat:@", I will be adding some character With Format."]];
+	NSLog(@"String2:%@",String2);
 
 ###3、在已有字符串中按照所给出范围和长度删除字符
 
@@ -191,14 +173,14 @@ category: blog
 	[String1 deleteCharactersInRange:NSMakeRange(0, 5)];
 	NSLog(@"String1:%@",String1);
 
-###4、在已有字符串后面在所指定的位置中插入给出的字符串
+###4、在已有字符串所指定的位置前插入给出的字符串
 
 	//-insertString: atIndex:
-	NSMutableString *String1 = [[NSMutableString alloc] initWithString:@"This is a NSMutableString"];
-	[String1 insertString:@"Hi! " atIndex:0];
-	NSLog(@"String1:%@",String1);
+	NSMutableString *String1 = [[NSMutableString alloc] initWithString:@"0123456789"];
+    [String1 insertString:@"^" atIndex:0];
+    NSLog(@"String1:%@",String1);
 	
-###5、将已有的空符串换成其它的字符串
+###5、将已有的字符串换成其它的字符串
 
 	//-setString:
 	NSMutableString *String1 = [[NSMutableString alloc] initWithString:@"This is a NSMutableString"];
@@ -207,23 +189,24 @@ category: blog
 	
 ###6、按照所给出的范围，和字符串替换的原有的字符
 
-	//-setString:
 	NSMutableString *String1 = [[NSMutableString alloc] initWithString:@"This is a NSMutableString"];
 	[String1 replaceCharactersInRange:NSMakeRange(0, 4) withString:@"That"];
 	NSLog(@"String1:%@",String1);
 	
 ###7、判断字符串内是否还包含别的字符串(前缀，后缀)
 ####7.1、检查字符串是否以另一个字符串开头
-`- (BOOL) hasPrefix: (NSString *) aString;`
 
+	//- (BOOL) hasPrefix: (NSString *) aString;
 	NSString *String1 = @"NSStringInformation.txt";
-	[String1 hasPrefix:@"NSString"] = = 1 ?NSLog(@"YES") : NSLog(@"NO");
-	[String1 hasSuffix:@".txt"] = = 1 ?NSLog(@"YES") : NSLog(@"NO");
+	[String1 hasPrefix:@"NSString"] == 1 ?NSLog(@"YES") : NSLog(@"NO");
+	[String1 hasSuffix:@".txt"] == 1 ?NSLog(@"YES") : NSLog(@"NO");
 
 ####7.2、查找字符串某处是否包含其它字符串 
-`- (NSRange) rangeOfString: (NSString *) aString;` 这一点前面在串中搜索子串用到过;
 
-<br/>
+	NSString *String1 = @"NSStringInformation.txt";
+    NSRange iStart = [String1 rangeOfString:@"String"];
+    NSLog(@"iStart length is %lu:",(unsigned long)iStart.length);
+
 
 ##参考文档
 
