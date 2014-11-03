@@ -10,7 +10,11 @@ category: blog
 
 ### 待升级硬件
 
+[金士顿(Kingston)V300 120G SATA3 固态硬盘](http://item.jd.com/779351.html)
+
 ### 工具
+
+【6# 8# 六口螺丝刀】【U型撬棒】
 
 ### 系统盘
 
@@ -58,35 +62,80 @@ Copying boot files…
 Step 2：拆机升级硬件
 ------------------
 
+本文实例机器是2013年3月后生产机器，与2011及2012版机器略有不同，会更复杂一些。因为2013年3月前生产的机器硬盘默认使用lower位（拆掉WiF罩后即可拆除，不用拆除主板，更简单一些），之后生产的默认使用upper位（硬盘在最下面，需要拆除所有机构）。苹果此举我猜是为了更便于机主添加第二块硬盘。
+
+至于Mac mini的2个硬盘位的区别，此处不多做介绍，读者可自行搜索。以下开始介绍upper位的拆机过程。
+
+###2.1：打开后盖
+按图中指示，将后盖从实心点旋转至空心点即可取下后盖（无需动刀）。
 ![mac-mini](/images/macminiupdate/mac01.png)
 
+取下后盖后的内部结构概览：
 ![mac-mini](/images/macminiupdate/mac02.png)
 
+###2.2：拆下风扇及内存条
+整个拆除过程内存条是最简单的，（常规方式）拨开弹片即可拔出。
 ![mac-mini](/images/macminiupdate/mac03.png)
 
+###2.3：拆除WiFi罩及风扇倒流罩
+这时注意WiFi罩下与主板连接的（按压式）接口，小心剥离！
 ![mac-mini](/images/macminiupdate/mac04.png)
 
+拆除后概览：
 ![mac-mini](/images/macminiupdate/mac05.png)
 
+###2.4：拆除主板
+这里将使用到工具里的U型撬棒，去掉左下角螺丝一枚以及连接主板的线缆（图中表示）后，向外把主板撬出（稍微用力一点不要紧）。
 ![mac-mini](/images/macminiupdate/mac06.png)
 
+连接主板主要接口：
 ![mac-mini](/images/macminiupdate/mac07.png)
 
+拆除后橄榄：
 ![mac-mini](/images/macminiupdate/mac08.png)
 
+###2.5：拆除电源组件
+注意标识处的卡扣，将其取下后，逆时针旋转电源线接头90°，向外拔出电源组件。
 ![mac-mini](/images/macminiupdate/mac09.png)
 
+拔出后如下图：
 ![mac-mini](/images/macminiupdate/mac-power.png)
 
+###2.6：卸下硬盘架并更换SSD
+如下图整个机身仅剩硬盘架，去除最后一颗固定螺丝，拿出硬盘架即可。
 ![mac-mini](/images/macminiupdate/mac10.png)
 
+硬盘架与硬盘之间有4个固定螺丝，拆除后更换上新的SSD。
 ![mac-mini](/images/macminiupdate/mac11.png)
 
+注意更换硬盘线（此处为upper型硬盘线）
 ![mac-mini](/images/macminiupdate/mac12.png)
 
+新旧硬盘合照，左边为淘汰下来500G的原装HDD
 ![mac-mini](/images/macminiupdate/mac13.png)
 
+###简直就是工艺品
+最后附上一张机箱图，你肯定没见过这么精致的机箱，这么小的机箱中整合了整套desktop，还如此精致，这个星球上只此一家了。
 ![mac-mini](/images/macminiupdate/mac14.png)
+
+<strong>哦，对了。至于怎么安装回去，只要有心的就不用问了，倒着来一遍以上步骤就完事了。</strong>
 
 Step 3：安装或还原系统
 --------------------
+
+正如前文所介绍的，还原这条路不是很容易走，此处就不再多说明了。来谈谈Mac系统安装吧（利用U盘安装）。
+
+###选择启动方式
+
+>其实Mac系统安装有什么好谈的呢，比windows简单多了，只要知道开机时选择启动方式即可：
+>>1、开机啥都不选，从硬盘启动（此处我们使用的是不带系统的全新SSD，显而易见会报错给你）；
+>>2、按住option键，从U盘或移动硬盘启动（我们需要选择的）；
+>>3、按住 cmd + R 从网络启动（理所当然你得连接上网络，恢复系统也是这个选项，下载过程就是个坑）。
+
+###磁盘工具格式化SSD
+
+进入启动项后，进入实用工具选项，选择磁盘工具，将SSD格式化为Mac的文件格式。（Mac文件系统跟Windows不同，不用分区。）
+
+###傻瓜式安装
+
+SSD准备好后，关掉工具即可。再选择磁盘开始安装系统，按要求下一步就好了，真的没啥好说的，总之就是简单。

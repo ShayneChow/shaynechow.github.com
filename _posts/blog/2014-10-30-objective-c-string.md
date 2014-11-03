@@ -201,7 +201,7 @@ category: blog
 	[String1 hasPrefix:@"NSString"] == 1 ?NSLog(@"YES") : NSLog(@"NO");
 	[String1 hasSuffix:@".txt"] == 1 ?NSLog(@"YES") : NSLog(@"NO");
 
-####7.2、查找字符串某处是否包含其它字符串 
+####7.2、截取指定字符串的长度 
 
 	NSString *String1 = @"NSStringInformation.txt";
     NSRange iStart = [String1 rangeOfString:@"String"];
