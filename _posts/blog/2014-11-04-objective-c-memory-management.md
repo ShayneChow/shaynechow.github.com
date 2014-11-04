@@ -13,7 +13,7 @@ category: blog
 <ul>
 	<li>内存管理是关于如何管理对象生命周期的编程原则</li>
 	<li>中的内存管理只针对OC中的对象,所有的对象都继承NSObject</li>
-	<li>基本数据类型不需要管理内存（`int, long, double, float, char, struct...`）</li>
+	<li>基本数据类型不需要管理内存（int, long, double, float, char, struct...）</li>
 	<li>当一个对象没有人再使用,该对象应该从内存中销毁掉</li>
 </ul>
 
