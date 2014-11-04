@@ -71,7 +71,9 @@ Person *person = [[Person alloc] init]; 	//计数为1
 
 @property的使用
 --------------
+
 一个类有如下属性,需要对所有的属性定义set和get方法,怎么定义?
+
 ```
 @interface User : NSObject {
 	int userId; 			//唯⼀一标⽰示id 
@@ -84,6 +86,7 @@ Person *person = [[Person alloc] init]; 	//计数为1
 ```
 
 set 和 get 方法：
+
 ```
 //设置器
 - (void)setUserName:(NSString *)name {
