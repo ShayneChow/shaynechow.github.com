@@ -23,7 +23,7 @@ category: blog
 
 ### 什么是引用计数
 
-<ol>
+<ul>
 	<li>所有OC的对象都有一个计数器, 这个计数器我们称为引用计数</li>
 	<li>引用计数表示有几个“人”在使用当前对象</li>
 	<li>每个对象都有一个retainCount引用计数,表示当前对象被引用的数量</li>
@@ -60,9 +60,100 @@ Person *person = [[Person alloc] init]; 	//计数为1
 如何持有对象所有权
 ----------------
 
-自动释放池
----------
+###对象所有权
+
+###黄金法则
+
+###如何持有对象
+
+###dealloc方法
+
 
 @property的使用
 --------------
+一个类有如下属性,需要对所有的属性定义set和get方法,怎么定义?
+```
+@interface User : NSObject {
+	int userId; 			//唯⼀一标⽰示id 
+	NSString *_userName; 	//⽤用户名称 
+	NSString *_password; 	//密码 
+	NSString *_email; 		//邮箱 
+	NSString *_birthday; 	//⽣生⽇日 
+	NSString *_address; 	//地址
+}
+```
 
+set 和 get 方法：
+```
+//设置器
+- (void)setUserName:(NSString *)name {
+    if (_userName != name) {
+        [_userName release];
+        _userName = [name retain];
+	} 
+}
+
+//访问器
+- (NSString *)userName {
+    return _userName;
+}
+```
+
+<strong>@property 可以为一个属性自动生成set和get方法,不需要我们手动编写。</strong>
+
+	@property(nonatomic, retain, readwrite)NSString *userName;
+
+1、原子性：
+<ul>
+	<li>atomic: 多线程环境下,存在线程保护,默认</li>
+	<li>nonatomic:多线程环境下,不存在线程保护</li>
+</ul>
+
+2、赋值：
+<ul>
+	<li>assign:直接赋值,默认</li>
+	<li>retain: 保留对象</li>
+	<li>copy: 拷贝对象</li>
+</ul>
+
+3、读写性：
+<ul>
+	<li>readwrite:生成getter、setter方法,默认</li>
+	<li>readonly: 只生成getter方法</li>
+</ul>
+
+### assign、retain、copy 的不同实现
+#### assign 的实现
+```
+//设置器
+- (void)setUserName:(NSString *)name {
+	_userName = name;
+}
+```
+
+#### retain 的实现
+```
+//设置器
+- (void)setUserName:(NSString *)name {
+	if(_userName != name){
+		[userName release];
+		_userName = [name retain];
+	}
+}
+```
+
+#### retain 的实现
+```
+//设置器
+- (void)setUserName:(NSString *)name {
+	if(_userName != name){
+		[userName release];
+		_userName = [name copy];
+	}
+}
+```
+@property 为一个属性自动生成set和get方法，我们也可以重新实现set和get方法,优先调用自己实现的set和get方法。
+
+自动释放池
+---------
+未完待续…
