@@ -5,9 +5,12 @@ description: iOS开发入门系列 之 Objective-C基础知识。Objective-C 中
 category: blog
 ---
 
-##小知识点，不断总结更新中…
+小知识点，不断总结更新中…
+----------------------
+本文知识点均来自网络，由于来源零散，故未标明出处，还请见谅，版权为原作者所有。
 
-### `#import` 和 `#include` 的区别
+### import 和 include 的区别
+
 在 Objective-C 中，`#import` 被当成 `#include` 指令的改良版本来使用。除此之外，`#import`确定一个文件只能被导入一次，这使你在递归包含中不会出现问题。
 
 使用哪一个还是由你来决定。一般来说，在导入 Objective-C 头文件的时候使用 `#import`，包含 C 头文件时使用 `#include`。
