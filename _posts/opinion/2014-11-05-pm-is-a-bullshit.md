@@ -59,5 +59,5 @@ description: “产品经理是什么”这个话题太严肃也太复杂，你�
 来首歌子，happy一下，然后该干嘛干嘛。
 
 <div style="text-align:center">
-<embed src="http://play.baidu.com/?__m=mboxCtrl.playSong&__a=121513771&__o=/song/121513771/820773e272b08542596e5||playBtn&fr=-1||-1#loaded" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+<embed src="http://player.youku.com/player.php/sid/XNzQwOTg4NTA4/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
 </div>
