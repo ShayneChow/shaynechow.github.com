@@ -58,6 +58,6 @@ description: “产品经理是什么”这个话题太严肃也太复杂，你�
 
 来首歌子，happy一下，然后该干嘛干嘛。
 
-<audio src="http://pan.baidu.com/share/link?shareid=4170888727&uk=2337020227" controls preload></audio>
+<audio src="http://play.baidu.com/?__m=mboxCtrl.playSong&__a=121513771&__o=/song/121513771/820773e272b08542596e5||playBtn&fr=-1||-1#loaded" controls preload></audio>
 
 <script src=“http://api.html5media.info/1.1.5/html5media.min.js”></script>
