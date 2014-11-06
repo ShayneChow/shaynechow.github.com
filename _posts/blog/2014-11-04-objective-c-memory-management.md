@@ -55,18 +55,66 @@ Person *person = [[Person alloc] init]; 	//计数为1
 [person release];	//计数为0,对象从内存中销毁掉,调⽤用dealloc⽅方法
 ```
 
-###为什么使用引用计数
 
 如何持有对象所有权
 ----------------
 
 ###对象所有权
 
+1、当一个所有者(owner,本身是一个OC对象)做了`alloc`,`retain`,`[mutable]copy`动作,它就拥有了一个对象的所 有权(ownership)；
+
+2、使用`release`,`autorelease`方法，释放对象所有权。
+
 ###黄金法则
+
+如果对一个对象使用了alloc,[mutable]copy,retain, 那么你必须使用相应的release或者autorelease释放。
 
 ###如何持有对象
 
+set方法持有对象所有权
+
+```
+-(void)setDog:(Dog *)dog
+{
+	if(_dog != dog){
+		[_dog release];
+		_dog = [dog retain];
+	}
+}
+```
+
+自定义初始化方法持有对象所有权
+
+```
+-(id)initWithDog:(Dog *)dog
+{
+	self = [super init];
+	if(self != nil){
+		_dog = [dog retain];
+	}
+	return self;
+}
+```
+
 ###dealloc方法
+
+1、当对象的引用计数为0时，系统调用此对象的dealloc方法；
+
+2、应该在dealloc方法中，释放他持有的对象。
+
+```
+-(void)dealloc
+{
+	//释放对狗的所有权
+	[_dog release];
+
+	//释放对汽车的所有权
+	[_car release];
+
+	//调⽤用[super dealloc]是为了释放⽗父类持有的对象所有权
+	[super dealloc];
+}
+```
 
 
 @property的使用
@@ -159,4 +207,21 @@ set 和 get 方法：
 
 自动释放池
 ---------
-未完待续…
+
+只需创建一个pool对象，然后对象将自动放置到该对象中。在程序末尾我们只需要释放pool就可以释放所有对象。
+
+```
+NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+NSString *string = [NSString stringWithString:@"Pool-managed string"];
+...
+[pool release];
+```
+
+###自管理内存
+使用alloc或new创建的对象，需要自己手动管理内存。
+
+```
+NSString * string = [[NSString alloc] initWithString:@"Self-managed string"];	//retain = 1
+...
+[string release];	//retain = 0; 需要自己调用release方法
+```

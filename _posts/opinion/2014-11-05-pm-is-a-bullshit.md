@@ -61,3 +61,4 @@ description: “产品经理是什么”这个话题太严肃也太复杂，你�
 <div style="text-align:center">
 <embed src="http://player.youku.com/player.php/sid/XNzQwOTg4NTA4/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
 </div>
+
