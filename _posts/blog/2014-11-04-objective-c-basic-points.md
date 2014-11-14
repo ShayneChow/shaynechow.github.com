@@ -29,3 +29,7 @@ You must provide a screenshot for 5.5-inch Retina display, because your app bina
 然后iTunes Connect后台加入这两者的截图，这样才能最终适配iPhone 6, iPhone6 Plus, App store中才会出现：此App 以针对iPhone 6,iPhone 6 Plus优化！，则截图就会显示iPhone 6的截图！
 
 不然，如果旧项目只是修改UI直接上传，不会出现此App 以针对iPhone 6,iPhone 6 Plus优化！也不会显示iPhone 6的截图！ 
+
+### “收藏”功能的实现原理
+
+有的软件有本地收藏，就是不登录就可以收藏的，用userdefaults，或者sqlite，需要登录才能收藏的肯定是上传到服务器由服务器保存 。
