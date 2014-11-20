@@ -5,8 +5,7 @@ description: iOS开发入门系列 之 Objective-C基础知识。
 category: blog
 ---
 
-Objective-C语言中的协议
----------------------
+## Objective-C语言中的协议
 
 ### Objective-C语言中协议的用途
 在Objective-C中，协议`protocol`有什么样的用途呢？`protocol`类似Java语言中的接口`interface`。
@@ -95,8 +94,7 @@ Objective-C语言中的协议
 	   	|-- Dog.h
 	   	`-- Dog.m
     	
-利用协议实现委托
---------------
+## 利用协议实现委托
 
 ###将A的事情委托给B来做
 
