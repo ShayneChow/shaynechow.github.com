@@ -33,3 +33,10 @@ You must provide a screenshot for 5.5-inch Retina display, because your app bina
 ### “收藏”功能的实现原理
 
 有的软件有本地收藏，就是不登录就可以收藏的，用userdefaults，或者sqlite，需要登录才能收藏的肯定是上传到服务器由服务器保存 。
+
+###iOS界面设计
+
+`[[UIScreen mainScreen] bounds]` 就是屏幕尺寸
+
+###10个迷惑新手的Cocoa&Objective-c开发问题
+[传送门](http://lianxu.me/2012/11/10-cocoa-objc-newbie-problems/)
