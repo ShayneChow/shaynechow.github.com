@@ -40,3 +40,11 @@ You must provide a screenshot for 5.5-inch Retina display, because your app bina
 
 ###10个迷惑新手的Cocoa&Objective-c开发问题
 [传送门](http://lianxu.me/2012/11/10-cocoa-objc-newbie-problems/)
+
+###Xcode6 如何全局导入头文件
+
+之前Xcode5的话是在prefix文件内import一次，就可以全局使用了，xcode6取消了prefix文件，替代的方法是什么呢？ 
+
+1、Add new PCH file to the project - New file > Other > PCH file 
+
+2、At the project 'Build Settings' option - set the value of 'Prefix Header' to your PCH file name, with the project name as prefix - i.e. for project named 'TestProject' and PCH file named 'MyPrefixHeaderFile', add the value 'TestProject/MyPrefixHeaderFile.pch' to the plist. 
