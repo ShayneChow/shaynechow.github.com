@@ -6,7 +6,7 @@ description: 本文来自 Apple 开发者中心官方文档，向大家介绍了
 ---
 
 Model-View-Controller
-=====================
+--------------------
 
 The Model-View-Controller (MVC) design pattern assigns objects in an application one of three roles: model, view, or controller. The pattern defines not only the roles objects play in the application, it defines the way objects communicate with each other. Each of the three types of objects is separated from the others by abstract boundaries and communicates with objects of the other types across those boundaries. The collection of objects of a certain MVC type in an application is sometimes referred to as a layer—for example, model layer.
 
