@@ -5,6 +5,16 @@ category: blog
 description: 本文来自 Apple 开发者中心官方文档，向大家介绍了 iOS 开发中的 MVC 模式。
 ---
 
+iOS Model-View-Controller 模式介绍
+---------------------------------
+（敬请期待……）
+
+### Model对象
+
+### View对象
+
+### Controller对象
+
 Model-View-Controller
 --------------------
 
