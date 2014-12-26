@@ -48,3 +48,14 @@ You must provide a screenshot for 5.5-inch Retina display, because your app bina
 1、Add new PCH file to the project - New file > Other > PCH file 
 
 2、At the project 'Build Settings' option - set the value of 'Prefix Header' to your PCH file name, with the project name as prefix - i.e. for project named 'TestProject' and PCH file named 'MyPrefixHeaderFile', add the value 'TestProject/MyPrefixHeaderFile.pch' to the plist. 
+
+### ARC语法的一些规则 
+<ul>
+	<li>1.代码中不能使用`retain, release, retain, autoreleas`</li>
+	<li>2.不重载`dealloc`（如果是释放对象内存以外的处理，是可以重载该函数的，但是不能调用`[super dealloc]`</li>
+	<li>3.不能使用`NSAllocateObject, NSDeallocateObjec`</li>
+	<li>4.不能在C结构体中使用对象指</li>
+	<li>5.`id`与`void *`间的如果`cast`时需要用特定的方法`__bridge`关键字</li>
+	<li>6.不能使用`NSAutoReleasePool`、而需要`@autoreleasepool`</li>
+	<li>7.不能使用`new`开始的属性名称 （如果使用会有下面的编译错误`”Property’s synthesized getter follows Cocoa naming convention for returning ‘owned’ objects”`）</li>
+</ul>
