@@ -74,3 +74,13 @@ You must provide a screenshot for 5.5-inch Retina display, because your app bina
 	<li>选择项目中的Targets，选中你所要操作的Target，</li>
 	<li>选Build Phases，在其中Complie Sources中选择需要ARC的文件双击，并在输入框中输入：-fobjc-ARC，如果不要ARC则输入：-fno-objc-ARC</li>
 </ul>
+
+### "加方法"与"减方法"
+
+"+" 加方法（类方法）由类名调用，格式：[ 类名  函数名 ]  
+
+   作用：a.创建（开辟）空间   b.单例模式（UI里面）c.一些数学运算（不用创建对象，直接用类名来调用，节省空间）
+
+"-" 减方法（普通方法、实例方法）调用必须要创建对象，有了对象才能调用
+
+  p.s:用户(程序员)绝大多数是写减方法，系统会用到很多加方法。
