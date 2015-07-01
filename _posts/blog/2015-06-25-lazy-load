@@ -1,0 +1,219 @@
+---
+layout:	post
+title: 	iOS懒加载
+category: blog
+description: 在iOS开发中，懒加载的应用非常广泛，本文将介绍几种常见的懒加载方式。
+---
+
+## 懒加载
+
+#### plis转模型
+
+##### 使用plist文件转化为shop模型
+- `shops.plist`
+- `ViewController.m`
+
+##### `shops.plist`结构示意:
+- Root - Array
+    - item 0 - Dictionary
+        - name - String
+        - icon - String
+    - item 1
+    - item 2
+    - ...
+
+##### `ViewController.m`
+
+```
+// ViewController.m
+
+#import "ViewController.h"
+
+@interface ViewController ()
+@property (nonatomic, strong) NSArray *shops;
+@end
+
+@implementation ViewController
+
+// 懒加载
+// 1.第一次用到时再去加载
+// 2.只会加载一次
+- (NSArray *)shops
+{
+    if (_shops == nil) {
+        // 获得plist文件的全路径
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"shops.plist" ofType:nil];
+
+        // 从plist文件中加载一个数组对象
+        _shops = [NSArray arrayWithContentsOfFile:file];
+    }
+    return _shops;
+}
+```
+
+---
+
+#### 字典转模型(1)
+
+##### 使用字典转化shop模型(初步)
+- `shops.plist`
+- `shop.h`
+- `ViewController.m`
+
+##### `shops.plist`同上
+
+##### `shop.h`:
+
+```
+// shop.h
+
+#import <Foundation/Foundation.h>
+
+@interface Shop : NSObject
+/** 名字 */
+@property (nonatomic, strong) NSString *name;
+/** 图标 */
+@property (nonatomic, strong) NSString *icon;
+@end
+```
+
+##### `ViewController.m`:
+
+```
+// ViewController.m
+
+#import "ViewController.h"
+#import "Shop.h"
+
+@interface ViewController ()
+@property (nonatomic, strong) NSMutableArray *shops;
+@end
+
+@implementation ViewController
+
+// 懒加载
+// 1.第一次用到时再去加载
+// 2.只会加载一次
+- (NSMutableArray *)shops
+{
+    if (_shops == nil) {
+        // 创建"模型数组"
+        _shops = [NSMutableArray array];
+
+        // 获得plist文件的全路径
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"shops.plist" ofType:nil];
+
+        // 从plist文件中加载一个数组对象(这个数组中存放的都是NSDictionary对象)
+        NSArray *dictArray = [NSArray arrayWithContentsOfFile:file];
+
+        // 将 “字典数组” 转换为 “模型数据”
+        for (NSDictionary *dict in dictArray) { // 遍历每一个字典
+            // 将 “字典” 转换为 “模型”
+            Shop *shop = [[Shop alloc] init];
+            shop.name = dict[@"name"];
+            shop.icon = dict[@"icon"];
+
+            // 将 “模型” 添加到 “模型数组中”
+            [_shops addObject:shop];
+        }
+    }
+    return _shops;
+}
+```
+
+---
+
+#### 字典转模型(2)
+
+##### 使用字典转化shop模型
+- `shops.plist`
+- `ZXShop.h`
+- `ZXShop.m`
+- `ViewController.m`
+
+##### `shops.plist`同上
+
+##### `ZXShop.h`:
+
+```
+#import <Foundation/Foundation.h>
+
+@interface ZXShop : NSObject
+/** 名字 */
+@property (nonatomic, copy) NSString *name;
+/** 图标 */
+@property (nonatomic, copy) NSString *icon;
+
+/** 通过一个字典来初始化模型对象 */
+- (instancetype)initWithDict:(NSDictionary *)dict;
+
+/** 通过一个字典来创建模型对象 */
++ (instancetype)shopWithDict:(NSDictionary *)dict;
+@end
+```
+
+##### `ZXShop.m`:
+
+```
+#import "ZXShop.h"
+
+@implementation ZXShop
+
+- (instancetype)initWithDict:(NSDictionary *)dict
+{
+    if (self = [super init]) {
+        self.name = dict[@"name"];
+        self.icon = dict[@"icon"];
+    }
+    return self;
+}
+
++ (instancetype)shopWithDict:(NSDictionary *)dict
+{
+    // 这里要用self
+    return [[self alloc] initWithDict:dict];
+}
+
+@end
+```
+
+##### `ViewController.m`:
+
+```
+#import "ViewController.h"
+#import "ZXShop.h"
+
+@interface ViewController ()
+@property (nonatomic, strong) NSMutableArray *shops;
+@end
+
+@implementation ViewController
+
+// 懒加载
+// 1.第一次用到时再去加载
+// 2.只会加载一次
+- (NSMutableArray *)shops
+{
+    if (_shops == nil) {
+        // 创建"模型数组"
+        _shops = [NSMutableArray array];
+
+        // 获得plist文件的全路径
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"shops.plist" ofType:nil];
+
+        // 从plist文件中加载一个数组对象(这个数组中存放的都是NSDictionary对象)
+        NSArray *dictArray = [NSArray arrayWithContentsOfFile:file];
+
+        // 将 “字典数组” 转换为 “模型数据”
+        for (NSDictionary *dict in dictArray) { // 遍历每一个字典
+            // 将 “字典” 转换为 “模型”
+            ZXShop *shop = [ZXShop shopWithDict:dict];
+
+            // 将 “模型” 添加到 “模型数组中”
+            [_shops addObject:shop];
+        }
+    }
+    return _shops;
+}
+```
+
