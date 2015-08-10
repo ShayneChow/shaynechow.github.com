@@ -5,11 +5,11 @@ category: blog
 description: 多线程的应用在现在移动开发中十分常见和重要，本文主要介绍iOS中NSOperation多线程技术。
 ---
 
-## `NSOperation`的作用
+## NSOperation的作用
 
 配合使用`NSOperation`和`NSOperationQueue`也能实现多线程编程
 
-### `NSOperation`和`NSOperationQueue`实现多线程的具体步骤
+### NSOperation和NSOperationQueue实现多线程的具体步骤
 
 - 先将需要执行的操作封装到一个`NSOperation`对象中；
 - 然后将`NSOperation`对象添加到`NSOperationQueue`中；
@@ -17,9 +17,9 @@ description: 多线程的应用在现在移动开发中十分常见和重要，�
 - 将取出的`NSOperation`封装的操作放到一条新线程中执行。
 
 
-## `NSOperation`的具体使用
+## NSOperation的具体使用
 
-### `NSOperation`的子类
+### NSOperation的子类
 
 `NSOperation`是个抽象类，并不具备封装操作的能力，必须使用它的子类。
 
@@ -29,7 +29,7 @@ description: 多线程的应用在现在移动开发中十分常见和重要，�
 - `NSBlockOperation`；
 - 自定义子类继承`NSOperation`，实现内部相应的方法。
 
-### `NSInvocationOperation`
+### NSInvocationOperation
 
 
 ```
@@ -61,7 +61,7 @@ description: 多线程的应用在现在移动开发中十分常见和重要，�
 <NSThread: 0x7fa2c1e15700>{number = 1, name = main}
 ```
 
-### `NSBlockOperation`
+### NSBlockOperation
 
 
 ```
@@ -93,9 +93,9 @@ description: 多线程的应用在现在移动开发中十分常见和重要，�
 1---<NSThread: 0x7f8d60508df0>{number = 1, name = main}
 ```
 
-### `NSOperationQueue`
+### NSOperationQueue
 
-#### `NSOperationQueue`的作用
+#### NSOperationQueue的作用
 
 - `NSOperation`可以调用`start`方法来执行任务，但默认是同步执行的；
 - 如果将`NSOperation`添加到`NSOperationQueue`（操作队列）中，系统会自动异步执行`NSOperation`中的操作。
@@ -105,8 +105,64 @@ description: 多线程的应用在现在移动开发中十分常见和重要，�
 - (void)addOperation:(NSOperation *)op;
 - (void)addOperationWithBlock:(void (^)(void))block;
 ```
+下面使用NSOperationQueue实现多线程操作：
 
-## `NSOperation`的其他用法
+首先创建一个继承自NSOperation的类`ZXOperation`	
+
+```
+// ZXOperation.h
+
+#import <Foundation/Foundation.h>
+
+@interface ZXOperation : NSOperation
+
+@end
+```
+
+```
+// ZXOperation.m
+
+#import "ZXOperation.h"
+
+@implementation ZXOperation
+
+/*
+ 只要将任务添加到队列中, 那么队列在执行自定义任务的时候
+ 就会自动调用main方法
+ */
+- (void)main {
+    NSLog(@"%s, %@", __func__, [NSThread currentThread]);
+}
+
+@end
+```
+
+```
+// ViewController.m
+
+#import "ZXOperation.h"
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    // 1.创建队列
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    // 2.创建任务
+    // 自定义任务的好处: 提高代码的复用性
+    ZXOperation *op1 = [[ZXOperation alloc] init];
+    ZXOperation *op2 = [[ZXOperation alloc] init];
+    
+    // 3.添加任务到队列
+    [queue addOperation:op1];
+    [queue addOperation:op2];
+}
+```
+输出结果如下：
+
+```
+-[ZXOperation main], <NSThread: 0x7f90b9f46ce0>{number = 2, name = (null)}
+-[ZXOperation main], <NSThread: 0x7f90b9e0ece0>{number = 3, name = (null)}
+```
+
+## NSOperation的其他用法
 
 ### 操作依赖
 
@@ -129,6 +185,6 @@ description: 多线程的应用在现在移动开发中十分常见和重要，�
 - (void)setCompletionBlock:(void (^)(void))block;
 ```
 
-### 自定义`NSOperation`
+### 自定义NSOperation
 
 自定义`NSOperation`将利用多图片下载的实例来说明，将单独开博。
