@@ -1,44 +1,104 @@
 ---
 layout:	post
-title: 	iOS多线程 -- NSOperation
+title: 	iOS多线程 -- NSOperation（一）
 category: blog
-description: iOS的几种设计模式中，代理、分类都很常见，今天要说的单例模式也有广泛的应用。
+description: 多线程的应用在现在移动开发中十分常见和重要，本文主要介绍iOS中NSOperation多线程技术。
 ---
 
-## NSOperation的作用
+## `NSOperation`的作用
 
-配合使用NSOperation和NSOperationQueue也能实现多线程编程
+配合使用`NSOperation`和`NSOperationQueue`也能实现多线程编程
 
-### NSOperation和NSOperationQueue实现多线程的具体步骤
+### `NSOperation`和`NSOperationQueue`实现多线程的具体步骤
 
-- 先将需要执行的操作封装到一个NSOperation对象中；
-- 然后将NSOperation对象添加到NSOperationQueue中；
-- 系统会自动将NSOperationQueue中的NSOperation取出来；
-- 将取出的NSOperation封装的操作放到一条新线程中执行。
+- 先将需要执行的操作封装到一个`NSOperation`对象中；
+- 然后将`NSOperation`对象添加到`NSOperationQueue`中；
+- 系统会自动将`NSOperationQueue`中的`NSOperation`取出来；
+- 将取出的`NSOperation`封装的操作放到一条新线程中执行。
 
 
-## NSOperation的具体使用
+## `NSOperation`的具体使用
 
-### NSOperation的子类
+### `NSOperation`的子类
 
-NSOperation是个抽象类，并不具备封装操作的能力，必须使用它的子类。
+`NSOperation`是个抽象类，并不具备封装操作的能力，必须使用它的子类。
 
-使用NSOperation子类的方式有3种：
+使用`NSOperation`子类的方式有3种：
 
-- NSInvocationOperation；
-- NSBlockOperation；
-- 自定义子类继承NSOperation，实现内部相应的方法。
+- `NSInvocationOperation`；
+- `NSBlockOperation`；
+- 自定义子类继承`NSOperation`，实现内部相应的方法。
 
-### NSInvocationOperation
+### `NSInvocationOperation`
 
-### NSBlockOperation
 
-### NSOperationQueue
+```
+- (void)invocation {
+    // 注意: 父类不具备封装操作的能力
+    //    NSOperation *op = [[NSOperation alloc] init];
+    
+    // 1.封装任务
+    NSInvocationOperation *op1 = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(run) object:nil];
+    // 2.要想执行任务必须调用start
+    [op1 start];
+    
+    NSInvocationOperation *op2 = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(run2) object:nil];
+    [op2 start];
+}
 
-#### NSOperationQueue的作用
+- (void)run {
+    NSLog(@"%@", [NSThread currentThread]);
+}
 
-- NSOperation可以调用start方法来执行任务，但默认是同步执行的；
-- 如果将NSOperation添加到NSOperationQueue（操作队列）中，系统会自动异步执行NSOperation中的操作。
+- (void)run2 {
+    NSLog(@"%@", [NSThread currentThread]);
+}
+```
+输出结果如下：
+
+```
+<NSThread: 0x7fa2c1e15700>{number = 1, name = main}
+<NSThread: 0x7fa2c1e15700>{number = 1, name = main}
+```
+
+### `NSBlockOperation`
+
+
+```
+- (void)blockOperation {
+    //1. 封装任务
+    NSBlockOperation *op1 = [NSBlockOperation blockOperationWithBlock:^{
+        // 主线程
+        NSLog(@"1---%@", [NSThread currentThread]);
+    }];
+    
+    // 2.追加其它任务
+    // 注意: 在没有队列的情况下, 如果给BlockOperation追加其它任务, 那么其它任务会在子线程中执行
+    [op1 addExecutionBlock:^{
+        NSLog(@"2---%@", [NSThread currentThread]);
+    }];
+    [op1 addExecutionBlock:^{
+        NSLog(@"3---%@", [NSThread currentThread]);
+    }];
+    
+    // 3.启动任务
+    [op1 start];
+}
+```
+输出结果如下：
+
+```
+3---<NSThread: 0x7f8d6049dc30>{number = 2, name = (null)}
+2---<NSThread: 0x7f8d6071bec0>{number = 3, name = (null)}
+1---<NSThread: 0x7f8d60508df0>{number = 1, name = main}
+```
+
+### `NSOperationQueue`
+
+#### `NSOperationQueue`的作用
+
+- `NSOperation`可以调用`start`方法来执行任务，但默认是同步执行的；
+- 如果将`NSOperation`添加到`NSOperationQueue`（操作队列）中，系统会自动异步执行`NSOperation`中的操作。
 
 ```
 // 添加操作到NSOperationQueue中的方法
@@ -46,18 +106,18 @@ NSOperation是个抽象类，并不具备封装操作的能力，必须使用它
 - (void)addOperationWithBlock:(void (^)(void))block;
 ```
 
-## NSOperation的其他用法
+## `NSOperation`的其他用法
 
 ### 操作依赖
 
-- NSOperation之间可以设置依赖来保证执行顺序
+- `NSOperation`之间可以设置依赖来保证执行顺序
 
 ```
 // 比如一定要让操作A执行完后，才能执行操作B，可以这么写
 [operationB addDependency:operationA]; // 操作B依赖于操作A
 ```
 
-- 可以在不同queue的NSOperation之间创建依赖关系
+- 可以在不同`queue`的`NSOperation`之间创建依赖关系
 
 ### 操作监听
 
@@ -69,6 +129,6 @@ NSOperation是个抽象类，并不具备封装操作的能力，必须使用它
 - (void)setCompletionBlock:(void (^)(void))block;
 ```
 
-### 自定义NSOperation
+### 自定义`NSOperation`
 
-自定义NSOperation将利用多图片下载的实例来说明，将单独开博。
+自定义`NSOperation`将利用多图片下载的实例来说明，将单独开博。
