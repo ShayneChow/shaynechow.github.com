@@ -162,6 +162,78 @@ description: 多线程的应用在现在移动开发中十分常见和重要，�
 -[ZXOperation main], <NSThread: 0x7f90b9e0ece0>{number = 3, name = (null)}
 ```
 
+### maxConcurrentOperationCount最大并发数
+
+关于`maxConcurrentOperationCount`的翻译，曾经有过激烈地讨论，很多人更喜欢翻译为“最大并发操作数”，因为“最大并发数”给人感觉是指的最大的可并发执行的线程数量，其实在`NSOperationQueue`中并不然，这里的线程是由系统控制的，子线程数目完全由不得你，所以你设置一个最大值意义不大，这里指的是所有线程中同时执行的操作数总和的最大值。
+
+最大并发数的相关方法：
+
+```
+- (NSInteger)maxConcurrentOperationCount;
+- (void)setMaxConcurrentOperationCount:(NSInteger)cnt;
+```
+
+```
+- (void)opration {
+	// 1、创建队列
+	NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+	// 自己创建的队列默认是并发, 如果设置maxConcurrentOperationCount = 1,就是串行
+	// 注意: 不能设置为0, 如果设置为0就不行执行任务\
+	//       默认情况下maxConcurrentOperationCount = -1
+	//       在开发中并发数最多尽量不要超过5~6条
+	queue.maxConcurrentOperationCount = 1;
+
+	// 2.创建任务
+    [queue addOperationWithBlock:^{
+        [NSThread sleepForTimeInterval:0.1];
+        NSLog(@"1 == %@", [NSThread currentThread]);
+    }];
+    [queue addOperationWithBlock:^{
+        [NSThread sleepForTimeInterval:0.1];
+        NSLog(@"2 == %@", [NSThread currentThread]);
+    }];
+    [queue addOperationWithBlock:^{
+        [NSThread sleepForTimeInterval:0.1];
+        NSLog(@"3 == %@", [NSThread currentThread]);
+    }];
+    [queue addOperationWithBlock:^{
+        [NSThread sleepForTimeInterval:0.1];
+        NSLog(@"4 == %@", [NSThread currentThread]);
+    }];
+    [queue addOperationWithBlock:^{
+        [NSThread sleepForTimeInterval:0.1];
+        NSLog(@"5 == %@", [NSThread currentThread]);
+    }];
+    [queue addOperationWithBlock:^{
+        [NSThread sleepForTimeInterval:0.1];
+        NSLog(@"6 == %@", [NSThread currentThread]);
+    }];
+}
+```
+
+输出结果如下：
+
+```
+1 == <NSThread: 0x7fbb005177a0>{number = 2, name = (null)}
+2 == <NSThread: 0x7fbb0050c910>{number = 3, name = (null)}
+3 == <NSThread: 0x7fbb005177a0>{number = 2, name = (null)}
+4 == <NSThread: 0x7fbb0050c910>{number = 3, name = (null)}
+5 == <NSThread: 0x7fbb0050c910>{number = 3, name = (null)}
+6 == <NSThread: 0x7fbb005177a0>{number = 2, name = (null)}
+```
+
+### 队列的取消、暂停、恢复
+
+```
+// 取消队列的所有操作
+- (void)cancelAllOperations;
+提示：也可以调用NSOperation的- (void)cancel方法取消单个操作
+
+// 暂停和恢复队列
+- (void)setSuspended:(BOOL)b; // YES代表暂停队列，NO代表恢复队列
+- (BOOL)isSuspended;
+```
+
 ## NSOperation的其他用法
 
 ### 操作依赖
