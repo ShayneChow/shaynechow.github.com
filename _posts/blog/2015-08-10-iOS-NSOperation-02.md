@@ -273,4 +273,139 @@ description: 继上文初步介绍了NSOperation多线程技术之后，我们�
 
 ### 线程阻塞问题
 
+重复下载顺利解决，但是第一次进入程序时，仍需要等待程序将图片下载完成才能显示界面，这个体验是非常不好的，而这就是耗时的下载操作在主线程阻塞了UI的加载导致的，所以接下来我们就来解决线程阻塞问题。
+
+1、首先添加操作即队列属性
+
+```
+/** 操作缓存 */
+@property (nonatomic, strong) NSMutableDictionary *operations;
+
+/** 队列 */
+@property (nonatomic, strong) NSOperationQueue *queue;
+```
+
+2、对相关属性的懒加载
+
+```
+- (NSMutableDictionary *)operations {
+    if (!_operations) {
+        _operations = [NSMutableDictionary dictionary];
+    }
+    return _operations;
+}
+
+- (NSOperationQueue *)queue {
+    if (!_queue) {
+        _queue = [[NSOperationQueue alloc] init];
+    }
+    return _queue;
+}
+```
+
+3、更新数据源方法
+
+```
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"%@", [NSThread currentThread]);
+    // 1.创建cell
+    static NSString *identifier = @"app";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    // 2.设置数据
+    ZXApp *app = self.apps[indexPath.row];
+    cell.textLabel.text = app.name;
+    cell.detailTextLabel.text = app.download;
+    // 注意点: cell上面的图片, 默认是没有宽高的, 所以还未下载完时候显示不出来，这时需要添加一个占位图片
+    cell.imageView.image = [UIImage imageNamed:@"占位图标"];
+    
+    // 下载图片
+    /*
+     存在的问题:
+     1.图片在主线程中下载, 阻塞主线程
+     2.重复下载, 浪费资源
+     */
+    
+    // 1.从字典冲获取需要展示图片
+    UIImage *image =  self.imageCaches[app.icon];
+    if (image == nil) {
+        // 2.从沙盒中获取图片
+        __block NSData *data = [NSData dataWithContentsOfFile:[app.icon cacheDir]];
+        
+        // 判断沙盒缓存中有没有
+        if (data == nil) {
+            //            NSLog(@"下载图片");
+            
+            // 3.判断当前是否有操作正在下载这张图片
+            NSBlockOperation *op = self.operations[app.icon];
+            if (op == nil) {
+                // 没有操作正在下载
+                /*
+                 存在问题:
+                 1.重复下
+                 2.重复设置 : reloadRowsAtIndexPaths
+                 */
+                op = [NSBlockOperation blockOperationWithBlock:^{
+                    
+                    [NSThread sleepForTimeInterval:1.0];
+                    // 需要下载
+                    NSURL *url = [NSURL URLWithString:app.icon];
+                    data = [NSData dataWithContentsOfURL:url];
+                    
+                    // 判断图片是否下载成功
+                    if (data == nil) {
+                        // 移除下载操作的缓存
+                        [self.operations removeObjectForKey:app.icon];
+                        return;
+                    }
+                    
+                    UIImage *image = [UIImage imageWithData:data];
+                    
+                    // 缓存下载好的数据到内存中
+                    self.imageCaches[app.icon] = image;
+                    
+                    // 缓存到沙盒
+                    [data writeToFile:[app.icon cacheDir] atomically:YES];
+                    
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        // 更新UI
+                        // cell.imageView.image = image;
+                        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                        NSLog(@"更新UI %zd", indexPath.row);
+                        
+                        // 移除缓存的下载操作
+                        [self.operations removeObjectForKey:app.icon];
+                    }];
+                }];
+                
+                // 缓存当前图片对应的下载操作
+                self.operations[app.icon] = op;
+                
+                // 添加操作到队列中
+                [self.queue addOperation:op];
+            }
+            
+        }else {
+            // NSLog(@"从沙盒加载图片");
+            // 根据沙盒缓存创建图片
+            UIImage *image = [UIImage imageWithData:data];
+            
+            // 进行内存缓存
+            self.imageCaches[app.icon] = image;
+            
+            // 更新UI
+            cell.imageView.image = image;
+            
+        }
+        
+    }else {
+        // NSLog(@"使用内存缓存");
+        // 更新UI
+        cell.imageView.image = image;
+    }
+    
+    // 3.返回cell
+    return cell;
+}
+```
+
 ## 使用第三方框架实现 -- SDWebImage
