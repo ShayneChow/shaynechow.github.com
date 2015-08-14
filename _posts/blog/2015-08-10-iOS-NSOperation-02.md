@@ -409,3 +409,73 @@ description: 继上文初步介绍了NSOperation多线程技术之后，我们�
 ```
 
 ## 使用第三方框架实现 -- SDWebImage
+
+### 基础UI框架
+
+基本框架与上面相同，不赘述。
+
+### SDWebImage基本使用
+
+导入SDWebImage框架，`#import "SDWebImage/UIImageView+WebCache.h"`，只需简单几步完成上面所有操作：
+
+```
+//
+//  ViewController.m
+//  SDWebImageDemo
+//
+//  Created by Xiang on 15/8/14.
+//  Copyright (c) 2015年 周想. All rights reserved.
+//
+
+#import "ViewController.h"
+#import "ZXApp.h"
+#import "SDWebImage/UIImageView+WebCache.h"
+
+@interface ViewController ()
+/** 需要展示的数据 */
+@property (nonatomic, strong) NSArray *apps;
+@end
+
+@implementation ViewController
+
+#pragma mark - 懒加载
+- (NSArray *)apps {
+    if (!_apps) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"apps.plist" ofType:nil];
+        NSArray *tempArr = [NSArray arrayWithContentsOfFile:path];
+        NSMutableArray *models = [NSMutableArray arrayWithCapacity:tempArr.count];
+        for (NSDictionary *dict in tempArr) {
+            ZXApp *app = [ZXApp appWithDict:dict];
+            [models addObject:app];
+        }
+        _apps = [models copy];
+    }
+    return _apps;
+}
+
+#pragma mark- datasource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.apps.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // 1.创建cell
+    static NSString *identifier = @"app";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    // 2.设置数据
+    ZXApp *app = self.apps[indexPath.row];
+    cell.textLabel.text = app.name;
+    cell.detailTextLabel.text = app.download;
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:app.icon] placeholderImage:[UIImage imageNamed:@"1"]];
+    
+    // 3.返回cell
+    return cell;
+}
+
+@end
+```
+
+是不是很简单。
+
+本文涉及代码[在这里](https://github.com/ShayneChow/iOS-NSOperationDemo)。
+
