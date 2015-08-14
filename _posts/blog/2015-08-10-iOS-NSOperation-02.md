@@ -123,7 +123,153 @@ description: 继上文初步介绍了NSOperation多线程技术之后，我们�
 
 ## 使用NSOperation实现
 
+要完成网络图片下载，使用NSOperation实现时会遇到以下两个问题：
+
+> - 重复下载
+> - 线程阻塞
+
+下面就依次解决这2个问题。
+
 ### 重复下载问题
+
+用户在来回拖动TableView的时候，基于目前的程序每次出现cell都会去下载一次对应的图片，这就造成了程序的性能损耗。
+
+那么怎么解决这个问题呢？这里就需要用到缓存了。
+
+针对此程序有3种获取图片的方式：
+
+>1.直接下载
+>2.内存缓存
+>3.沙盒缓存
+
+直接下载和内存缓存我们都很好理解，那么沙盒是个什么鬼呢？一般很少接触到，这里关于沙盒的详细问题就不做过多介绍，直接祭出神器，一个基于NSString的扩展分类专门用来处理沙盒存储路径的，以后需用到沙盒存储的地方可以直接拿来使用。
+
+```
+// NSString+ZX.h
+
+#import <Foundation/Foundation.h>
+
+@interface NSString (ZX)
+
+/**
+ *  生成缓存目录全路径
+ */
+- (instancetype)cacheDir;
+/**
+ *  生成文档目录全路径
+ */
+- (instancetype)docDir;
+/**
+ *  生成临时目录全路径
+ */
+- (instancetype)tmpDir;
+@end
+```
+
+```
+// NSString+ZX.m
+
+#import "NSString+ZX.h"
+
+@implementation NSString (ZX)
+
+- (instancetype)cacheDir {
+    NSString *dir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    return [dir stringByAppendingPathComponent:[self lastPathComponent]];
+}
+
+- (instancetype)docDir {
+    NSString *dir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    return [dir stringByAppendingPathComponent:[self lastPathComponent]];
+}
+
+- (instancetype)tmpDir {
+    NSString *dir = NSTemporaryDirectory();
+    return [dir stringByAppendingPathComponent:[self lastPathComponent]];
+}
+@end
+```
+
+在TableView视图控制器中导入头文件，创建缓存属性，然后在cell的加载中加入缓存方法
+
+```
+// ZXTableViewController.m 除以下方法外其他省略未写（未改动）
+
+#import "NSString+ZX.h"
+// 懒加载图片缓存属性
+- (NSMutableDictionary *)imageCaches {
+    if (!_imageCaches) {
+        _imageCaches = [NSMutableDictionary dictionary];
+    }
+    return _imageCaches;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"%@", [NSThread currentThread]);
+    // 1.创建cell
+    static NSString *identifier = @"app";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    // 2.设置数据
+    ZXApp *app = self.apps[indexPath.row];
+    cell.textLabel.text = app.name;
+    cell.detailTextLabel.text = app.download;
+    
+    // 下载图片
+    /*
+     存在的问题:
+     1.图片在主线程中下载, 阻塞主线程
+     2.重复下载, 浪费资源
+     */
+    
+    // 1.从字典冲获取需要展示图片
+    UIImage *image =  self.imageCaches[app.icon];
+    if (image == nil) {
+        //        NSLog(@"下载图片");
+        
+        // 2.判断沙盒缓存中有没有
+        NSData *data = [NSData dataWithContentsOfFile:[app.icon cacheDir]];
+        if (data == nil) {
+            NSLog(@"下载图片");
+            // 需要下载
+            NSURL *url = [NSURL URLWithString:app.icon];
+            data = [NSData dataWithContentsOfURL:url];
+            UIImage *image = [UIImage imageWithData:data];
+            
+            // 缓存下载好的数据到内存中
+            self.imageCaches[app.icon] = image;
+            
+            // 缓存到沙盒
+            [data writeToFile:[app.icon cacheDir] atomically:YES];
+            
+            // 更新UI
+            cell.imageView.image = image;
+        }else
+        {
+            NSLog(@"从沙盒加载图片");
+            // 根据沙盒缓存创建图片
+            UIImage *image = [UIImage imageWithData:data];
+            
+            // 进行内存缓存
+            self.imageCaches[app.icon] = image;
+            
+            // 更新UI
+            cell.imageView.image = image;
+            
+        }
+        
+    }else
+    {
+        NSLog(@"使用内存缓存");
+        // 更新UI
+        cell.imageView.image = image;
+    }
+    
+    // 3.返回cell
+    return cell;
+}
+```
+
+自此即可解决重复下载问题了。
 
 ### 线程阻塞问题
 
