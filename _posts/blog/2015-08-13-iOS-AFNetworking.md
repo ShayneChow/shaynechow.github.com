@@ -11,6 +11,8 @@ AFNetworking是iOS / Mac OS 开发中常用的HTTP网络框架，在它之前ASI
 
 ## AFNetworking的基本使用
 
+AFNetworking的get和post请求差别就是一处关键字的不同，其他一模一样，是不是超简单。
+
 ### 基于NSURLConnection的get请求
 
 ```

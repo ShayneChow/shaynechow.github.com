@@ -84,3 +84,46 @@ You must provide a screenshot for 5.5-inch Retina display, because your app bina
 "-" 减方法（普通方法、实例方法）调用必须要创建对象，有了对象才能调用
 
   p.s:用户(程序员)绝大多数是写减方法，系统会用到很多加方法。
+
+### 关于UIView的autoresizingMask属性
+
+在 UIView 中有一个autoresizingMask的属性，它对应的是一个枚举的值（如下），属性的意思就是自动调整子控件与父控件中间的位置，宽高。
+
+```
+enum {
+   UIViewAutoresizingNone                 = 0,
+   UIViewAutoresizingFlexibleLeftMargin   = 1 << 0,
+   UIViewAutoresizingFlexibleWidth        = 1 << 1,
+   UIViewAutoresizingFlexibleRightMargin  = 1 << 2,
+   UIViewAutoresizingFlexibleTopMargin    = 1 << 3,
+   UIViewAutoresizingFlexibleHeight       = 1 << 4,
+   UIViewAutoresizingFlexibleBottomMargin = 1 << 5
+};
+```
+
+`UIViewAutoresizingNone` 就是不自动调整。
+`UIViewAutoresizingFlexibleLeftMargin` 自动调整与superView左边的距离，保证与superView右边的距离不变。
+`UIViewAutoresizingFlexibleRightMargin` 自动调整与superView的右边距离，保证与superView左边的距离不变。
+`UIViewAutoresizingFlexibleTopMargin` 自动调整与superView顶部的距离，保证与superView底部的距离不变。
+`UIViewAutoresizingFlexibleBottomMargin` 自动调整与superView底部的距离，也就是说，与superView顶部的距离不变。
+`UIViewAutoresizingFlexibleWidth` 自动调整自己的宽度，保证与superView左边和右边的距离不变。
+`UIViewAutoresizingFlexibleHeight` 自动调整自己的高度，保证与superView顶部和底部的距离不变。
+`UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin` 自动调整与superView左边的距离，保证与左边的距离和右边的距离和原来距左边和右边的距离的比例不变。比如原来距离为20，30，调整后的距离应为68，102，即68/20=102/30。
+
+其它的组合类似。
+
+### 如何从工程中删除Cocoapods
+
+>1. 删除工程文件夹下的Podfile、Podfile.lock及Pods文件夹
+>2. 删除xcworkspace文件
+>3. 使用xcodeproj文件打开工程，删除Frameworks组下的Pods.xcconfig及libPods.a引用
+>4. 在工程设置中的Build Phases下删除Check Pods Manifest.lock及Copy Pods Resources
+
+### 在iOS开发中使用自定义字体（静态字体）
+
+1、将字体文件拷贝到项目工程中，在Info.plist文件中添加Fonts provided by application的配置项，其中每一个Item对应的是字体文件的名称，如DS-DIGI.TTF。
+2、使用时直接按照如下方式即可：
+
+```
+_textLabel1.font = [UIFont fontWithName:@"DS-Digital" size:40];
+```
