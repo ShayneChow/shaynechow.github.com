@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 产品经理是个伪命题（三）
+title: 人人都是产品经理是个伪命题（三）
 category: opinion
 description: 真的需要产品经理么？
 ---

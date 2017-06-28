@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 产品经理是个伪命题（一）
+title: 人人都是产品经理是个伪命题（一）
 category: opinion
 description: 你一定听说过“人人都是产品经理”这句话，你有没有被忽悠到呢？
 ---
