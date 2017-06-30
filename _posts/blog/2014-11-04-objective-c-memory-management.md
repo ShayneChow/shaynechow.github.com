@@ -8,7 +8,7 @@ category: blog
 内存管理的概念
 ------------
 
-###什么是内存管理
+### 什么是内存管理
 
 <ul>
 	<li>内存管理是关于如何管理对象生命周期的编程原则</li>
@@ -32,10 +32,10 @@ category: blog
 
 ![引用计数加减](/images/ocneicun/nei01.png)
 
-><ul><li>1、调用retain方法，计数+1，调用release方法，计数-1；</li>
-><li>2、当引用计数为0时，说明没有“人”使用此对象，此对象就会被系统销毁。</li></ul>
+> <ul><li>1、调用retain方法，计数+1，调用release方法，计数-1；</li>
+> <li>2、当引用计数为0时，说明没有“人”使用此对象，此对象就会被系统销毁。</li></ul>
 
-###alloc、retain、release
+### alloc、retain、release
 
 <ul>
 	<li>alloc用来创建对象,创建完成后,引用计数为1,只调用一次。</li>
@@ -59,17 +59,17 @@ Person *person = [[Person alloc] init]; 	//计数为1
 如何持有对象所有权
 ----------------
 
-###对象所有权
+### 对象所有权
 
 1、当一个所有者(owner,本身是一个OC对象)做了`alloc`,`retain`,`[mutable]copy`动作,它就拥有了一个对象的所 有权(ownership)；
 
 2、使用`release`,`autorelease`方法，释放对象所有权。
 
-###黄金法则
+### 黄金法则
 
 如果对一个对象使用了alloc,[mutable]copy,retain, 那么你必须使用相应的release或者autorelease释放。
 
-###如何持有对象
+### 如何持有对象
 
 set方法持有对象所有权
 
@@ -217,7 +217,7 @@ NSString *string = [NSString stringWithString:@"Pool-managed string"];
 [pool release];
 ```
 
-###自管理内存
+### 自管理内存
 使用alloc或new创建的对象，需要自己手动管理内存。
 
 ```
