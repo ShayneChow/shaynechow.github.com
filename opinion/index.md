@@ -5,8 +5,8 @@ layout: home
 <div class="index-content opinion">
     <div class="section">
         <ul class="artical-cate">
-            <li><a href="/opinion"><span>产品</span></a></li>
-            <li class="on" style="text-align:center"><a href="/"><span>技术</span></a></li>
+            <li><a href="/"><span>技术</span></a></li>
+            <li class="on" style="text-align:center"><a href="/opinion"><span>产品</span></a></li>
             <li style="text-align:right"><a href="/about"><span>关于</span></a></li>
         </ul>
 
